@@ -15,7 +15,7 @@ Installing to tead Excel files:
 
 ```{r}
 # opening a file from a url (file in Excel), name it 'fragility23'
-linkGit="https://github.com/DACSS-Fundamentals/overview/raw/refs/heads/main/FSI-2023-DOWNLOAD.xlsx"
+linkGit="https://github.com/FuntamendalsSteven/demo2/raw/refs/heads/main/FSI-2023-DOWNLOAD.xlsx"
 
 # library(rio) # package needed
 fragility23=rio::import(file = linkGit) #object that will hold the result
