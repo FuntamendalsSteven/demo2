@@ -57,63 +57,63 @@ sum(fragility23[,4:5]) # Sums together all rows (values) of the 4th and 5th colu
 
 ```{r}
 # sum by column
-print(apply(fragility23[,4:5],2,sum)) # displays to screen the modified version of fragility23 where the 4th and 5th columns are summed (each column summed with all its row values). 2 input represents the column
+print(apply(fragility23[,4:5],2,sum)) # displays to screen the modified version of a copy of fragility23 where the 4th and 5th columns are summed by the apply function (each column summed with all its row values). 2 input represents the column
 ```
 
 ```{r}
 #notice
-typeof(apply(fragility23[,4:5],2,sum)) # shows the type value of the modified version of fragility23 where the 4th and 5th columns are summed column wise(each column summed with all its row values)
+typeof(apply(fragility23[,4:5],2,sum)) # shows the type value of the modified version of a copy of fragility23 where the 4th and 5th columns are summed column wise (each column summed with all its row values) by the apply function
 ```
 
 If you do not see **list**, then it is a vector. ⏫
 
 ```{r}
 # sum by row
-print(apply(fragility23[,4:5],1,sum)) # displays to screen the modified version of fragility23 where the 4th and 5th columns are summed row wise (each row summed with all its column values). 1 input represents the rows
+print(apply(fragility23[,4:5],1,sum)) # displays to screen the modified version of a copy of fragility23 where the 4th and 5th columns are summed row wise (each row summed with all its column values) by the apply function. 1 input represents the rows
 ```
 
 ### Apply by iterating:
 
 ```{r}
-print(lapply(fragility23[,4:5],sum))
+print(lapply(fragility23[,4:5],sum)) # displays to the screen a list returned by the lapply function that performs a summation on the 4th and 5th columns of fragility23.
 ```
 
 Notice output of **lapply**:
 
 ```{r}
-typeof(lapply(fragility23[,4:5],sum))
+typeof(lapply(fragility23[,4:5],sum)) # returns the variable type of the return of the above function. It is indeed a list
 ```
 
 ```{r}
-class(lapply(fragility23[,4:5],sum))
+class(lapply(fragility23[,4:5],sum)) # returns the high-level abstraction category of how R treats the return of the above function
 ```
 
 Notice output of **sapply**:
 
 ```{r}
-print(sapply(fragility23[,4:5],sum))
+print(sapply(fragility23[,4:5],sum)) # displays to screen a vector or matrix produced by the applied summation function on the 4th and 5th column of fragility23
 ```
 
 ```{r}
-class(sapply(fragility23[,4:5],sum))
+class(sapply(fragility23[,4:5],sum)) # returns the high level abstraction of how R treats the return from the above function. R identifies it as a numeric.
 ```
 
 Similarly:
 
 ```{r}
-print(lapply(fragility23[,4:5],sqrt))
+print(lapply(fragility23[,4:5],sqrt)) # displays to screen a list produced by the applied sqrt function on each row value of the 4th and 5th column of fragility23
 ```
 
 ```{r}
-class(lapply(fragility23[,4:5],sqrt))
+class(lapply(fragility23[,4:5],sqrt)) # returns the high level abstraction category of how R treats the return from the above function. The above function returns a list.
 ```
 
 ```{r}
-print(sapply(fragility23[,4:5],sqrt))
+print(sapply(fragility23[,4:5],sqrt)) # displays to the screen a vector or matrix produced by the applied sqrt function on the 4th and 5th column of fragility23
 ```
 
 ```{r}
-class(sapply(fragility23[,4:5],sqrt))
+class(sapply(fragility23[,4:5],sqrt)) # returns the variable category (matrix or array) created by the function sapply (a vector or matrix produced by the applied sqrt function on the 4th and 5th column of fragility23) that determines R behavior
 ```
 
 Now our own function:
