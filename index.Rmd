@@ -119,29 +119,43 @@ class(sapply(fragility23[,4:5],sqrt)) # returns the variable category (matrix or
 Now our own function:
 
 ```{r}
-theOnesOK = function(DF_country_and_variable) {
-  variable_values <- DF_country_and_variable[,2]
-  avg_value <- mean(variable_values, na.rm = TRUE)
-  is_above <- ifelse(variable_values > avg_value, "Above Average", "Below/At Average")
-  DF_country_and_variable$Status <- is_above
-  return(DF_country_and_variable)
+theOnesOK = function(DF_country_and_variable) { # function definition for theOnesOK(), takes data frame portion that should be all rows x 2 columns
+  variable_values <- DF_country_and_variable[,2] # assigns 2nd column of data frame to variable_values
+  avg_value <- mean(variable_values, na.rm = TRUE) # assigns mean calculated from variable_values ignoring missing values with na.rm = TRUE to avg_value
+  is_above <- ifelse(variable_values > avg_value, "Above Average", "Below/At Average") # assigns boolean value comparing each value of variable_values to avg_value, if true assigns 'Above Average,' else latter
+  DF_country_and_variable$Status <- is_above # assigns is_above boolean to DF_country_and_variables status value
+  return(DF_country_and_variable) # returns a new object, with data frame country, and variable with new Status column
 }
 ```
 
 ```{r}
-theOnesOK(fragility23[,c('Country','S1: Demographic Pressures')])
+theOnesOK(fragility23[,c('Country','S1: Demographic Pressures')]) # function call to theOnesOK, inputting country and S1:Demographic Pressures columns of fragility23 (input = all rows x 2 columns dataframe)
+```
+```{r}
+theOnesOK2 = function(DF, DFvariable, CountryColumn='Country') { # function definition for theOnesOK2, takes entire dataframe, dataframe variable, and has default column for country
+  variable_values <- DF[,DFvariable] # assigns variable_values with column of data frame designated by df variable
+  avg_value <- mean(variable_values, na.rm = TRUE) # assigns mean calculated from variable_values ignoring missing values with na.rm = TRUE to avg_value
+  is_above <- ifelse(variable_values > avg_value, "Above Average", "Below/At Average") # assigns boolean value comparing each value of variable_values to avg_value, if true assigns 'Above Average,' else latter
+  newname = paste('Status_on', DFvariable) # assigns object newname with character vector of concatenated 'Status_on' and DFvariable
+  DF[,newname] <- is_above # assigns is_above value to a value in the new column in the dataframe named newname
+  return(DF[,c(CountryColumn, newname)]) # returns a (new copy) portion of the dataframe that is only the country column, and newname (whatever designated column by user) column
+} # This function takes more parameters than 'theOnesOK2' but operates generally the same. The difference is that it does not create/modify the Status column of the data frame and instead creates/modifies a new column with newname, and returns all rows object x 2 column instead of all rows x 3 column
 ```
 
 ```{r}
-mystery=function(DF,positionsToUse,CountryColumn='Country'){
-  newDF=DF[,c(CountryColumn),drop = FALSE]
-  average='average'
-  newDF[,average]=apply(DF[,positionsToUse],1,mean,na.rm = TRUE)
-  return(newDF[,c(CountryColumn,average)])
+theOnesOK2(fragility23,'S1: Demographic Pressures') # function call to theOnesOK2, inputting country and S1:Demographic Pressures columns of fragility23, dataframe, dfvariable, leaving default third argument to country
+```
+
+```{r}
+mystery=function(DF,positionsToUse,CountryColumn='Country'){ # function definition for mystery() taking a dataframe, position to use and country column variable that defaults to 'Country'
+  newDF=DF[,c(CountryColumn),drop = FALSE] # assigns object named newDF with the dataframe including all rows and column 'CountryColumn' with drop = FALSE preserving the class as a dataframe.
+  average='average' # assigns object named 'average' with string 'average'
+  newDF[,average]=apply(DF[,positionsToUse],1,mean,na.rm = TRUE) # adds a new column named 'average' (if previously nonexistent) and assigned value given by applying mean function ignoring missing variables (na.rm = TRUE) row wise (1 parameter) to positionsToUse column(s) in the dataframe
+  return(newDF[,c(CountryColumn,average)]) # returns a data frame all rows x 2 column Country and average
 }
 ```
 
 ```{r}
-mystery(fragility23,4:6)
+mystery(fragility23,4:6) # call to mystery function, inputting fragility23 and columns 4,5, and 6 as positionsToUse
 ```
 
